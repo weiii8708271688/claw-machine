@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高級刮刮樂模擬器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen p-4">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:max-w-2xl p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">高級刮刮樂模擬器</h1>
+        <form id="scratchcardForm" class="space-y-6">
+            <div>
+                <label for="strategy" class="block text-sm font-medium text-gray-700">策略:</label>
+                <select id="strategy" name="strategy" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="strategy1">策略1: 找到全部獎項</option>
+                    <option value="strategy2">策略2: 找到全部大獎就換版</option>
+                    <option value="strategy3">策略3: 找到任一獎項後若機率小於原始機率就換版</option>
+                </select>
+            </div>
+            
+            <div id="strategy1Fields" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="m1" class="block text-sm font-medium text-gray-700">總號碼數量 (m):</label>
+                        <input type="number" id="m1" name="m1" value="120" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="n1" class="block text-sm font-medium text-gray-700">中獎號碼數量 (n):</label>
+                        <input type="number" id="n1" name="n1" value="2" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="x1" class="block text-sm font-medium text-gray-700">總獎項價值 (x):</label>
+                        <input type="number" id="x1" name="x1" value="4200" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="p1" class="block text-sm font-medium text-gray-700">每次刮開價格 (p):</label>
+                        <input type="number" id="p1" name="p1" value="70" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="strategy2Fields" class="space-y-4 hidden">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="m2" class="block text-sm font-medium text-gray-700">總號碼數量 (m):</label>
+                        <input type="number" id="m2" name="m2" value="120" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="n1_2" class="block text-sm font-medium text-gray-700">大獎號碼數量 (n1):</label>
+                        <input type="number" id="n1_2" name="n1_2" value="1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="n2_2" class="block text-sm font-medium text-gray-700">小獎號碼數量 (n2):</label>
+                        <input type="number" id="n2_2" name="n2_2" value="1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="x1_2" class="block text-sm font-medium text-gray-700">大獎價值 (x1):</label>
+                        <input type="number" id="x1_2" name="x1_2" value="3200" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="x2_2" class="block text-sm font-medium text-gray-700">小獎價值 (x2):</label>
+                        <input type="number" id="x2_2" name="x2_2" value="900" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="p2" class="block text-sm font-medium text-gray-700">每次刮開價格 (p):</label>
+                        <input type="number" id="p2" name="p2" value="120" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="strategy3Fields" class="space-y-4 hidden">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="m3" class="block text-sm font-medium text-gray-700">總號碼數量 (m):</label>
+                        <input type="number" id="m3" name="m3" value="120" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="n3" class="block text-sm font-medium text-gray-700">大獎數量 (n):</label>
+                        <input type="number" id="n3" name="n3" value="2" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="x3" class="block text-sm font-medium text-gray-700">大獎價值 (x):</label>
+                        <input type="number" id="x3" name="x3" value="4200" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="p3" class="block text-sm font-medium text-gray-700">每次刮開價格 (p):</label>
+                        <input type="number" id="p3" name="p3" value="70" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <label for="numSimulations" class="block text-sm font-medium text-gray-700">模擬次數:</label>
+                <input type="number" id="numSimulations" name="numSimulations" value="10000" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            </div>
+            
+            <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                運行模擬
+            </button>
+        </form>
+        <div id="results" class="mt-8 space-y-4 hidden bg-indigo-50 p-4 rounded-lg">
+            <h2 class="text-2xl font-semibold text-indigo-700">模擬結果</h2>
+            <p id="averageProfit" class="text-lg"></p>
+            <p id="averageScratches" class="text-lg"></p>
+        </div>
+    </div>
+
+    <script>
+        const strategySelect = document.getElementById('strategy');
+        const strategy1Fields = document.getElementById('strategy1Fields');
+        const strategy2Fields = document.getElementById('strategy2Fields');
+        const strategy3Fields = document.getElementById('strategy3Fields');
+
+        strategySelect.addEventListener('change', function() {
+            strategy1Fields.classList.add('hidden');
+            strategy2Fields.classList.add('hidden');
+            strategy3Fields.classList.add('hidden');
+            
+            if (this.value === 'strategy1') {
+                strategy1Fields.classList.remove('hidden');
+            } else if (this.value === 'strategy2') {
+                strategy2Fields.classList.remove('hidden');
+            } else if (this.value === 'strategy3') {
+                strategy3Fields.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('scratchcardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const strategy = document.getElementById('strategy').value;
+            let formData = {
+                strategy: strategy,
+                numSimulations: document.getElementById('numSimulations').value
+            };
+
+            if (strategy === 'strategy1') {
+                formData.m = document.getElementById('m1').value;
+                formData.n = document.getElementById('n1').value;
+                formData.x = document.getElementById('x1').value;
+                formData.p = document.getElementById('p1').value;
+            } else if (strategy === 'strategy2') {
+                formData.m = document.getElementById('m2').value;
+                formData.n1 = document.getElementById('n1_2').value;
+                formData.n2 = document.getElementById('n2_2').value;
+                formData.x1 = document.getElementById('x1_2').value;
+                formData.x2 = document.getElementById('x2_2').value;
+                formData.p = document.getElementById('p2').value;
+            } else if (strategy === 'strategy3') {
+                formData.m = document.getElementById('m3').value;
+                formData.n = document.getElementById('n3').value;
+                formData.x = document.getElementById('x3').value;
+                formData.p = document.getElementById('p3').value;
+                formData.threshold = document.getElementById('threshold').value;
+            }
+
+            fetch('/simulate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('averageProfit').textContent = `平均收益: $${data.averageProfit}`;
+                document.getElementById('averageScratches').textContent = `平均刮開次數: ${data.averageScratches}`;
+                document.getElementById('results').classList.remove('hidden');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
